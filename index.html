@@ -1,0 +1,121 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>1INCH Daily</title>
+  <meta name="description" content="1INCH Daily">
+  <meta name="author" content="Belactriple9">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+  <!-- Open Graph -->
+  <meta name="og:title" content="1INCH Daily" />
+  <meta name="og:url" content="https://timdeschryver.dev/posts/gridsome-social-cards" />
+  <meta name="og:description" content="Average daily $1INCH price increase" />
+  <meta name="og:type" content="article" />
+  <meta name="og:image" content="/social.png" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:creator" content="@belactriple9" />
+  <meta name="twitter:title" content="1inch Daily" />
+  <meta name="twitter:description" content="Average daily $1INCH price increase" />
+  <meta name="twitter:image" content="/social.png" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="content">
+      <div>
+        <p class="text">On Average $1INCH Goes Up</p>
+        <p class="number transparent" id="number">$4</p>
+        <p class="text">Every Day</p>
+      </div>
+    </div>
+    <footer>By <a class="handle" href="https://twitter.com/1inch"> @1inch</a> <span class="source">(<a
+          href="https://github.com/justinmoon/ngudaily">source</a>)</span></footer>
+  </div>
+  </div>
+  <script>
+    function handleData(data) {
+      const genesis = new Date(2020, 11, 24);
+      const now = new Date();
+      const deltaSeconds = now.getTime() - genesis.getTime();
+      const deltaDays = deltaSeconds / (1000 * 3600 * 24);
+      const inchDaily = data.ticker.price / deltaDays;
+      const el = document.getElementById("number");
+      if (el) {
+        el.innerHTML = `\$${inchDaily.toFixed(8)}`;
+        el.classList.remove("transparent")
+      }
+    }
+
+    // TODO: error handling
+    fetch('https://api.cryptonator.com/api/ticker/1inch-usd')
+      .then(response => response.json())
+      .then(data => handleData(data))
+  </script>
+</body>
+<style>
+  body {
+    font-family: 'Special Elite', cursive;
+    background-image: linear-gradient(to right, rgba(13, 24, 42), rgba(8, 12, 21), rgba(28, 19, 38));
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  a:link {
+    color: inherit;
+  }
+
+  a:visited {
+    color: inherit;
+  }
+
+  .container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .text {
+    font-size: 2rem;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    color: white;
+  }
+
+  .number {
+    font-size: 6rem;
+    text-align: center;
+    padding: 0;
+    margin: 4rem 0 2rem 0;
+    color: white;
+  }
+
+  .transparent {
+    color: transparent;
+  }
+
+  .handle {
+    margin: 0 0.5rem 0 0.5rem;
+  }
+</style>
+
+</html>
