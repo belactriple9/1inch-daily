@@ -1,1 +1,1 @@
-# [1inch Daily](belactriple9.github.io/1inch-daily/)
+# [1inch Daily](https://belactriple9.github.io/1inch-daily/)
